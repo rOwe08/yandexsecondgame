@@ -101,7 +101,7 @@ namespace SpeederRunGame
 		public float touchSensitivity = 1;
 		
 		[Tooltip("Should the camera rotate to follow the player movement?")]
-		public bool rotateCamera = false;
+		private bool rotateCamera = true;
 
 		[Tooltip("Should we use a stiff input for rotating? This makes the player move immediately left/right instead of easing into the motion")]
 		public bool stiffKeyboardInput = false;
