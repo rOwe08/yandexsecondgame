@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SpeederRunGame.Types;
+using YG;
+using System;
 
 namespace SpeederRunGame
 {
@@ -16,6 +18,8 @@ namespace SpeederRunGame
 
         [Tooltip("The current level we are on. The first level is 0, the second 1, etc")]
         public int currentStage = 0;
+
+        private string stageText = "STAGE";
 
         public string stagePlayerPrefs = "CurrentStage";
 
@@ -45,6 +49,7 @@ namespace SpeederRunGame
 
         internal int index;
 
+        
         //[Tooltip("The/texture of the icon when it is locked ( The black color on locked 3d models )")]
         //public Texture lockedTexture;
 
@@ -100,13 +105,28 @@ namespace SpeederRunGame
             {
                 buttonStartGame.interactable = true;
 
-                if (starTextObject) starTextObject.text = stages[currentStage].stageName;
+                if(YandexGame.EnvironmentData.language == "ru")
+                {
+                    if (starTextObject) starTextObject.text = "УРОВЕНЬ " + Convert.ToString(currentStage + 1);
+                }
+                else
+                {
+                    if (starTextObject) starTextObject.text = stages[currentStage].stageName;
+                }
+
             }
             else
             {
                 buttonStartGame.interactable = false;
 
-                if (starTextObject) starTextObject.text = "GET " + (stages[currentStage].starsToUnlock - totalStars).ToString() + " STARS";
+                if (YandexGame.EnvironmentData.language == "ru") 
+                {
+                    if (starTextObject) starTextObject.text = "ЕЩЁ " + (stages[currentStage].starsToUnlock - totalStars).ToString() + " ЗВЁЗД";
+                }
+                else
+                {
+                    if (starTextObject) starTextObject.text = "GET " + (stages[currentStage].starsToUnlock - totalStars).ToString() + " STARS";
+                }
             }
 
         }

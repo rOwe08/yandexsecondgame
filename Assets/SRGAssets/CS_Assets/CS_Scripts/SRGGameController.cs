@@ -1,9 +1,10 @@
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SpeederRunGame.Types;
+using YG;
 
 namespace SpeederRunGame
 {
@@ -608,9 +609,6 @@ namespace SpeederRunGame
 				//Show the game over screen
 				gameOverCanvas.gameObject.SetActive(true);
 				
-				//Write the score text
-				gameOverCanvas.Find("TextScore").GetComponent<Text>().text = "SCORE " + score.ToString();
-				
 				//Check if we got a high score
 				if ( score > highScore )    
 				{
@@ -619,12 +617,26 @@ namespace SpeederRunGame
 					//Register the new high score
 					PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", score);
 				}
-				
-				//Write the high sscore text
-				gameOverCanvas.Find("TextHighScore").GetComponent<Text>().text = "HIGH SCORE " + highScore.ToString();
 
-				//If there is a source and a sound, play it from the source
-				if ( soundSource && soundGameOver )    
+                if (YandexGame.EnvironmentData.language == "ru")
+                {
+                    //Write the score text
+                    gameOverCanvas.Find("TextScore").GetComponent<Text>().text = "СЧЁТ " + score.ToString();
+
+                    //Write the high score text
+                    gameOverCanvas.Find("TextHighScore").GetComponent<Text>().text = "ЛУЧШИЙ СЧЁТ " + highScore.ToString();
+                }
+                else
+                {
+                    //Write the score text
+                    gameOverCanvas.Find("TextScore").GetComponent<Text>().text = "SCORE " + score.ToString();
+
+                    //Write the high score text
+                    gameOverCanvas.Find("TextHighScore").GetComponent<Text>().text = "HIGH SCORE " + highScore.ToString();
+                }
+
+                //If there is a source and a sound, play it from the source
+                if ( soundSource && soundGameOver )    
 				{
 					soundSource.GetComponent<AudioSource>().pitch = 1;
 					
