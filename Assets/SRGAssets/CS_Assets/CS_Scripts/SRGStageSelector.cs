@@ -32,7 +32,7 @@ namespace SpeederRunGame
         public Button buttonPrevStage;
 
         public Button buttonStartGame;
-        public Text starTextObject;
+        public TextMeshProUGUI starTextObject;
         internal string startText;
 
         [Tooltip("Get a star for every amount of score in the stage. Example: Get a star at 100 score, and another at 200, and another at 300")]
