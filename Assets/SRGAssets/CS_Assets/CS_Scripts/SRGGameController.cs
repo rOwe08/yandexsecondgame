@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SpeederRunGame.Types;
 using YG;
+using TMPro;
+using TMPro.Examples;
 
 namespace SpeederRunGame
 {
@@ -420,7 +422,7 @@ namespace SpeederRunGame
 		void  UpdateScore()
 		{
 			//Update the score text
-			if ( scoreText )    scoreText.GetComponent<Text>().text = Mathf.CeilToInt(scoreCount).ToString();
+			if ( scoreText )    scoreText.GetComponent<TextMeshProUGUI>().text = Mathf.CeilToInt(scoreCount).ToString();
 
 			//If we reached the required score, level up!
 			if ( levelUpCount >= scoreToLevelUp )
@@ -466,7 +468,7 @@ namespace SpeederRunGame
 		void UpdateLevel()
 		{
 			// Display the current level we are on
-			if ( progressCanvas )    progressCanvas.Find("Text").GetComponent<Text>().text = (currentLevel + 1).ToString();
+			if ( progressCanvas )    progressCanvas.Find("Text").GetComponent<TextMeshProUGUI>().text = (currentLevel + 1).ToString();
 
 			// Set the speed of the player in this level
 			//targetSpeed = levels[currentLevel].targetSpeed;
@@ -621,18 +623,18 @@ namespace SpeederRunGame
                 if (YandexGame.EnvironmentData.language == "ru")
                 {
                     //Write the score text
-                    gameOverCanvas.Find("TextScore").GetComponent<Text>().text = "СЧЁТ " + score.ToString();
+                    gameOverCanvas.Find("TextScore").GetComponent<TextMeshProUGUI>().text = "СЧЁТ " + score.ToString();
 
                     //Write the high score text
-                    gameOverCanvas.Find("TextHighScore").GetComponent<Text>().text = "ЛУЧШИЙ СЧЁТ " + highScore.ToString();
+                    gameOverCanvas.Find("TextHighScore").GetComponent<TextMeshProUGUI>().text = "ЛУЧШИЙ СЧЁТ " + highScore.ToString();
                 }
                 else
                 {
                     //Write the score text
-                    gameOverCanvas.Find("TextScore").GetComponent<Text>().text = "SCORE " + score.ToString();
+                    gameOverCanvas.Find("TextScore").GetComponent<TextMeshProUGUI>().text = "SCORE " + score.ToString();
 
                     //Write the high score text
-                    gameOverCanvas.Find("TextHighScore").GetComponent<Text>().text = "HIGH SCORE " + highScore.ToString();
+                    gameOverCanvas.Find("TextHighScore").GetComponent<TextMeshProUGUI>().text = "HIGH SCORE " + highScore.ToString();
                 }
 
                 //If there is a source and a sound, play it from the source

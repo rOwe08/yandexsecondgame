@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using SpeederRunGame.Types;
 using YG;
 using System;
+using TMPro;
 
 namespace SpeederRunGame
 {
@@ -14,7 +15,7 @@ namespace SpeederRunGame
 	/// </summary>
 	public class SRGStageSelector : MonoBehaviour 
 	{
-        public Text highScoreText;
+        public TextMeshProUGUI highScoreText;
 
         [Tooltip("The current level we are on. The first level is 0, the second 1, etc")]
         public int currentStage = 0;
