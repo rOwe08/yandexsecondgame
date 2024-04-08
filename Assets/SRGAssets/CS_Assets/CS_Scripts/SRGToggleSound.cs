@@ -74,7 +74,7 @@ namespace SpeederRunGame.Types
 		/// </summary>
 		void ToggleSound()
 		{
-			currentState = 1 - currentState;
+			soundObject.GetComponent<AudioSource>().mute = !soundObject.GetComponent<AudioSource>().mute;
 		
 			SetSound();
 		}
