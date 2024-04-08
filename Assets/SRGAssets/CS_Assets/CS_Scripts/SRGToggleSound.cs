@@ -20,7 +20,7 @@ namespace SpeederRunGame.Types
 		public string playerPref = "SoundVolume";
 	
 		// The index of the current value of the sound
-		internal float currentState = 1;
+		internal float currentState = 0.5f;
 	
 		/// <summary>
 		/// Awake is called when the script instance is being loaded.
