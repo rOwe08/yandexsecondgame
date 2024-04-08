@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using YG;
+using TMPro;
 
 namespace SpeederRunGame.Types
 {
@@ -23,13 +24,18 @@ namespace SpeederRunGame.Types
         /// </summary>
         void Start()
 		{
-            if(YandexGame.EnvironmentData.language == "ru")
+            TakeRangomWord();
+        }
+
+        public void TakeRangomWord()
+        {
+            if (YandexGame.EnvironmentData.language == "ru")
             {
-                if (textRusList.Length > 0) GetComponent<Text>().text = textRusList[Mathf.FloorToInt(Random.Range(0, textRusList.Length))];
+                if (textRusList.Length > 0) GetComponent<TextMeshProUGUI>().text = textRusList[Mathf.FloorToInt(Random.Range(0, textRusList.Length))];
             }
             else
             {
-                if (textEnList.Length > 0) GetComponent<Text>().text = textEnList[Mathf.FloorToInt(Random.Range(0, textEnList.Length))];
+                if (textEnList.Length > 0) GetComponent<TextMeshProUGUI>().text = textEnList[Mathf.FloorToInt(Random.Range(0, textEnList.Length))];
             }
         }
 	}

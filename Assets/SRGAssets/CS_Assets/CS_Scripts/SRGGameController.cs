@@ -493,6 +493,7 @@ namespace SpeederRunGame
 				// Update the text of the level
 				//levelUpCanvas.Find("Text").GetComponent<Text>().text = levelNamePrefix + (currentLevel+1).ToString();
 
+				levelUpCanvas.GetComponentInChildren<SRGRandomText>().TakeRangomWord();
 				// Play the level up animation
 				if ( levelUpCanvas.GetComponent<Animation>() )    levelUpCanvas.GetComponent<Animation>().Play();
 
