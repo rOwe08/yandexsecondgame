@@ -18,8 +18,6 @@ namespace YG
 
         // Ваши сохранения
 
-        // ...
-
         public int overall_highscore = 0;
         public int[] level_highscore = new int[3];
 

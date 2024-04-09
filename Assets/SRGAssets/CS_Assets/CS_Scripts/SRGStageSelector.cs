@@ -7,6 +7,7 @@ using SpeederRunGame.Types;
 using YG;
 using System;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace SpeederRunGame
 {
@@ -72,7 +73,8 @@ namespace SpeederRunGame
             // Get all the highscores from all the stages, using PlayerPrefs
             for ( index = 0; index < stages.Length; index++ )
             {
-                stages[index].highscore = PlayerPrefs.GetFloat(stages[index].sceneName + "HighScore", 0);
+                //stages[index].highscore = PlayerPrefs.GetFloat(stages[index].sceneName + "HighScore", 0);
+                stages[index].highscore = YandexGame.savesData.level_highscore[index];
 
                 totalStars += Mathf.Clamp((Mathf.FloorToInt(stages[index].highscore / scoreForStar)), 0, maximumStars);
             }
@@ -134,14 +136,11 @@ namespace SpeederRunGame
 
         public void StartGame()
         {
-            if ( stages[currentStage].highscore > -1 )
+            if (stages[currentStage].highscore > -1)
             {
                 SceneManager.LoadScene(stages[currentStage].sceneName);
             }
 
         }
-
-        
-
     }
 }

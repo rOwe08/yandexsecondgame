@@ -182,7 +182,8 @@ namespace SpeederRunGame
 			if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(false);
 
 			//Get the highscore for the player
-			highScore = PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name + "HighScore", 0);
+			//highScore = PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name + "HighScore", 0);
+			highScore = YandexGame.savesData.level_highscore[SceneManager.GetActiveScene().buildIndex - 2];
 
 //CALCULATING section CHANCES
 			// Calculate the chances for the objects to spawn
@@ -616,10 +617,16 @@ namespace SpeederRunGame
 				if ( score > highScore )    
 				{
 					highScore = score;
-					
+
 					//Register the new high score
-					PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", score);
-				}
+					//PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", score);
+
+					int levelIndex = SceneManager.GetActiveScene().buildIndex - 2;
+                    YandexGame.savesData.level_highscore[levelIndex] = (int)score;
+					AddNewLeaderboard(levelIndex + 1, (int)score);
+
+					UpdateSavedOverallHighscore();
+                }
 
                 if (YandexGame.EnvironmentData.language == "ru")
                 {
@@ -670,5 +677,26 @@ namespace SpeederRunGame
 
 			Gizmos.DrawSphere (Vector3.forward * sectionPosition, 1);
 		}
-	}
+
+		public void UpdateSavedOverallHighscore() 
+		{
+			int temp_highscore = 0;
+			foreach (int levelScore in YandexGame.savesData.level_highscore)
+			{
+				temp_highscore += levelScore;
+			}
+
+			if(temp_highscore > YandexGame.savesData.overall_highscore)
+			{
+				YandexGame.savesData.overall_highscore = temp_highscore;
+                YandexGame.NewLeaderboardScores("OverallScore", YandexGame.savesData.overall_highscore);
+            }
+
+			YandexGame.SaveProgress();
+		}
+		public void AddNewLeaderboard(int level_number, int score)
+		{
+            YandexGame.NewLeaderboardScores("Level" + level_number.ToString(), score);
+        }
+    }
 }
