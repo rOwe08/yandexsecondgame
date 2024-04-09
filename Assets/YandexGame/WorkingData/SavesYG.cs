@@ -20,6 +20,9 @@ namespace YG
 
         // ...
 
+        public int overall_highscore = 0;
+        public int[] level_highscore = new int[3];
+
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 
 
