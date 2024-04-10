@@ -134,6 +134,7 @@ namespace SpeederRunGame
 			// Вызываем метод для показа рекламы
 			YandexGame.FullscreenShow();
 
+			Time.timeScale = 0;
             // После завершения показа рекламы запускаем рестарт уровня
             StartCoroutine("ExecuteRestartLevelAfterAd");
         }
@@ -147,6 +148,7 @@ namespace SpeederRunGame
                 yield return null;
             }
 
+            Time.timeScale = 1;
             // После завершения показа рекламы выполняем рестарт уровня
             RestartLevel();
         }
