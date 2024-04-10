@@ -1,7 +1,7 @@
 {
-  "idSave": 8,
+  "idSave": 10,
   "isFirstSession": false,
-  "language": "ru",
+  "language": "en",
   "promptDone": false,
   "money": 1,
   "newPlayerName": "Hello!",
@@ -10,10 +10,10 @@
     true,
     false
   ],
-  "overall_highscore": 5100,
+  "overall_highscore": 5300,
   "level_highscore": [
     2900,
-    200,
+    400,
     2000
   ]
 }
