@@ -1,5 +1,5 @@
 {
-  "idSave": 1,
+  "idSave": 4,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -10,9 +10,9 @@
     true,
     false
   ],
-  "overall_highscore": 2000,
+  "overall_highscore": 2600,
   "level_highscore": [
-    0,
+    600,
     0,
     2000
   ]

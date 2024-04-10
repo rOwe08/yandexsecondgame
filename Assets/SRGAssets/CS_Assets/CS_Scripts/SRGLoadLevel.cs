@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using YG;
 
 namespace SpeederRunGame
 {
@@ -124,5 +125,30 @@ namespace SpeederRunGame
 
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-	}
+
+        /// <summary>
+        /// Restarts the current level.
+        /// </summary>
+        public void RestartLevelWithAd()
+        {
+			// Вызываем метод для показа рекламы
+			YandexGame.FullscreenShow();
+
+            // После завершения показа рекламы запускаем рестарт уровня
+            StartCoroutine("ExecuteRestartLevelAfterAd");
+        }
+
+        // Метод для ожидания завершения показа рекламы перед рестартом уровня
+        IEnumerator ExecuteRestartLevelAfterAd()
+        {
+            // Ожидаем завершения показа рекламы
+            while (YandexGame.nowAdsShow)
+            {
+                yield return null;
+            }
+
+            // После завершения показа рекламы выполняем рестарт уровня
+            RestartLevel();
+        }
+    }
 }
