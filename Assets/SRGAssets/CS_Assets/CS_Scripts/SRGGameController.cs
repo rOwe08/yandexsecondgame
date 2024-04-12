@@ -606,7 +606,16 @@ namespace SpeederRunGame
 		{
 			isGameOver = true;
 
-			yield return new WaitForSeconds(delay);
+            int temp_highscore = 0;
+
+            foreach (int levelScore in YandexGame.savesData.level_highscore)
+            {
+                temp_highscore += levelScore;
+            }
+
+            YandexGame.NewLeaderboardScores("Score", temp_highscore);
+
+            yield return new WaitForSeconds(delay);
 			
 			//Remove the pause and game screens
 			if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(false);
