@@ -145,8 +145,13 @@ namespace SpeederRunGame
 			// Activate the pause canvas early on, so it can detect info about sound volume state
 			if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(true);
 
-			// Create the player object and place it at the start position
-			if ( playerController )
+			UpdateSavedOverallHighscore();
+
+            YandexGame.NewLeaderboardScores("Test", 0);
+
+
+            // Create the player object and place it at the start position
+            if ( playerController )
 			{
 				// Create the player object
 				playerObject = Instantiate( playerObject) as Transform;
@@ -623,7 +628,6 @@ namespace SpeederRunGame
 
 					int levelIndex = SceneManager.GetActiveScene().buildIndex - 2;
                     YandexGame.savesData.level_highscore[levelIndex] = (int)score;
-					AddNewLeaderboard(levelIndex + 1, (int)score);
 
 					UpdateSavedOverallHighscore();
                 }
@@ -686,17 +690,14 @@ namespace SpeederRunGame
 				temp_highscore += levelScore;
 			}
 
-			if(temp_highscore > YandexGame.savesData.overall_highscore)
+			if(temp_highscore >= YandexGame.savesData.overall_highscore)
 			{
 				YandexGame.savesData.overall_highscore = temp_highscore;
-                YandexGame.NewLeaderboardScores("OverallScore", YandexGame.savesData.overall_highscore);
+                YandexGame.NewLeaderboardScores("Score", temp_highscore);
+                YandexGame.NewLeaderboardScores("Level12", temp_highscore);
             }
 
 			YandexGame.SaveProgress();
 		}
-		public void AddNewLeaderboard(int level_number, int score)
-		{
-            YandexGame.NewLeaderboardScores("Level" + level_number.ToString(), score);
-        }
     }
 }
