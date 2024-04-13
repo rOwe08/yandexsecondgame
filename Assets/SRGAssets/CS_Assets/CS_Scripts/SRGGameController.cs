@@ -147,9 +147,6 @@ namespace SpeederRunGame
 
 			UpdateSavedOverallHighscore();
 
-            YandexGame.NewLeaderboardScores("Test", 0);
-
-
             // Create the player object and place it at the start position
             if ( playerController )
 			{
