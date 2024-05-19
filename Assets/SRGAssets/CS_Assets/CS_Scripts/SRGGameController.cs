@@ -7,6 +7,7 @@ using SpeederRunGame.Types;
 using YG;
 using TMPro;
 using TMPro.Examples;
+using UnityEngine.VFX;
 
 namespace SpeederRunGame
 {
@@ -136,6 +137,8 @@ namespace SpeederRunGame
 		public AudioClip soundGameOver;
 		public string soundSourceTag = "GameController";
 		internal GameObject soundSource;
+
+		private bool IsAdWatched = false;
 
 		// A general use index
 		internal int index = 0;
@@ -514,7 +517,6 @@ namespace SpeederRunGame
 			}
 		}
 
-
 		public void Continue()
 		{
 			// Create the player object and place it at the start position
@@ -596,10 +598,29 @@ namespace SpeederRunGame
 			if ( gameCanvas )    gameCanvas.gameObject.SetActive(true);
 		}
 
-		/// <summary>
-		/// Runs the game over event and shows the game over screen
-		/// </summary>
-		IEnumerator GameOver(float delay)
+        public void OpenRewardAd(int id)
+        {
+            YandexGame.RewVideoShow(id);
+        }
+
+        void Rewarded(int id)
+        {
+            if (id == 1)
+            {
+                WatchAdForRestart();
+            }
+        }
+
+        public void WatchAdForRestart()
+        {
+            Continue();
+			ActivateShield(4f);
+        }
+
+        /// <summary>
+        /// Runs the game over event and shows the game over screen
+        /// </summary>
+        IEnumerator GameOver(float delay)
 		{
 			isGameOver = true;
 
@@ -623,9 +644,33 @@ namespace SpeederRunGame
 			{
 				//Show the game over screen
 				gameOverCanvas.gameObject.SetActive(true);
-				
-				//Check if we got a high score
-				if ( score > highScore )    
+
+				if (!IsAdWatched)
+				{
+					Button yandexButton = gameOverCanvas.transform.Find("ButtonWatchAd").GetComponent<Button>();
+                    gameOverCanvas.transform.Find("ButtonWatchAd").gameObject.SetActive(true);
+
+                    //Starting ad button shaking animation
+                    ShakeButton shakeButton = gameOverCanvas.transform.Find("ButtonWatchAd").gameObject.GetComponent<ShakeButton>();
+
+                    yandexButton.onClick.RemoveAllListeners();
+                    yandexButton.onClick.AddListener(() =>
+                    {
+                        yandexButton.interactable = false;
+                        OpenRewardAd(1);
+                    });
+
+                    shakeButton.StartCoroutine(shakeButton.ShakeCoroutine());
+
+					IsAdWatched = true;
+                }
+				else
+				{
+                    gameOverCanvas.transform.Find("ButtonWatchAd").gameObject.SetActive(false);
+                }
+
+                //Check if we got a high score
+                if ( score > highScore )    
 				{
 					highScore = score;
 
@@ -705,5 +750,7 @@ namespace SpeederRunGame
 
 			YandexGame.SaveProgress();
 		}
+        private void OnEnable() => YandexGame.RewardVideoEvent += Rewarded;
+        private void OnDisable() => YandexGame.RewardVideoEvent -= Rewarded;
     }
 }
